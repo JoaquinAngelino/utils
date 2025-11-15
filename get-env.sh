@@ -2,7 +2,6 @@
 
 set -e
 
-# Check arguments
 if [ -z "$1" ]; then
   echo "Usage: $0 <base-folder> [target-folder]"
   exit 1
