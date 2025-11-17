@@ -1,0 +1,95 @@
+[window]
+opacity = 0.94
+dynamic_padding = true
+decorations = "full"
+# startup_mode = "Windowed"
+dynamic_title = true
+
+[font]
+size = 10
+
+[font.normal]
+family = "DejaVuSansMNerdFont"
+style = "Regular"
+
+[font.bold]
+family = "DejaVuSansMNerdFont"
+style = "Bold"
+
+[font.italic]
+family = "DejaVuSansMNerdFont"
+style = "Italic"
+
+[font.bold_italic]
+family = "DejaVuSansMNerdFont"
+style = "Bold Italic"
+
+[colors.primary]
+background = "0x1e1e2e"   # base
+foreground = "0xcdd6f4"   # text
+
+[colors.cursor]
+text = "0x1e1e2e"         # base
+cursor = "0xf5e0dc"       # rosewater
+
+[colors.selection]
+text = "0x1e1e2e"         # base
+background = "0xf5e0dc"   # rosewater
+
+[colors.normal]
+black   = "0x45475a"      # surface1
+red     = "0xf38ba8"      # red
+green   = "0xa6e3a1"      # green
+yellow  = "0xf9e2af"      # yellow
+blue    = "0x89b4fa"      # blue
+magenta = "0xf5c2e7"      # pink
+cyan    = "0x94e2d5"      # teal
+white   = "0xbac2de"      # subtext1
+
+[colors.bright]
+black   = "0x585b70"      # surface2
+red     = "0xf38ba8"      # red
+green   = "0xa6e3a1"      # green
+yellow  = "0xf9e2af"      # yellow
+blue    = "0x89b4fa"      # blue
+magenta = "0xf5c2e7"      # pink
+cyan    = "0x94e2d5"      # teal
+white   = "0xa6adc8"      # subtext0
+
+[cursor]
+style = { shape = "Block", blinking = "On" }
+vi_mode_style = { shape = "Beam", blinking = "Off" }
+blink_interval = 500
+
+[selection]
+save_to_clipboard = true
+
+# [bell]
+# animation = "EaseOutExpo"
+# duration = 80
+
+[scrolling]
+history = 5000
+multiplier = 5
+
+[mouse]
+hide_when_typing = true
+
+[keyboard]
+bindings = [
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+  { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" },
+  { key = "PageUp", mods = "Shift", action = "ScrollPageUp" },
+  { key = "PageDown", mods = "Shift", action = "ScrollPageDown" },
+  { key = "Space", mods = "Control|Shift", action = "ToggleViMode" }
+]
+
+[debug]
+render_timer = false
+persistent_logging = false
+log_level = "Warn"
+
+[env]
+# TERM = "alacritty"
+TERM = "xterm-256color"
