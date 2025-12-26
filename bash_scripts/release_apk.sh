@@ -45,12 +45,39 @@ fi
 # Construir nombre destino del apk
 apk_dest_name="${fecha_actual}_${cod_cliente}_v${version_name}_${version_code}.apk"
 
+# Detect OS and find Android SDK directory (macOS and Linux common locations)
+if [[ "$(uname)" == "Darwin" ]]; then
+    candidates=("$HOME/Library/Android/sdk" "$HOME/Android/Sdk")
+    open_cmd="open"
+else
+    candidates=("$HOME/Android/Sdk" "/opt/android-sdk")
+    open_cmd="xdg-open"
+fi
+
+sdk_dir=""
+for d in "${candidates[@]}"; do
+    if [[ -d "$d" ]]; then
+        sdk_dir="$d"
+        break
+    fi
+done
+
+if [[ -z "$sdk_dir" ]]; then
+    echo "Android SDK directory not found. Tried: ${candidates[*]}"
+    echo "If your SDK is in a different path, set ANDROID_SDK_ROOT or create one of the above dirs. Falling back to \$HOME."
+    sdk_dir="$HOME"
+fi
+
 # Compilar APK release
 if ./gradlew assembleRelease; then
     apk_path="app/build/outputs/apk/release/app-release.apk"
     if [[ -f "$apk_path" ]]; then
-        mv "$apk_path" ~/Android/Sdk/"$apk_dest_name" || { echo "No se pudo mover el APK a ~/Android/Sdk/"; exit 1; }
-        echo "APK movido a ~/Android/Sdk/$apk_dest_name"
+        # Ensure destination directory exists
+        if [[ ! -d "$sdk_dir" ]]; then
+            mkdir -p "$sdk_dir" || { echo "No se pudo crear el directorio $sdk_dir"; exit 1; }
+        fi
+        mv "$apk_path" "$sdk_dir/$apk_dest_name" || { echo "No se pudo mover el APK a $sdk_dir/"; exit 1; }
+        echo "APK movido a $sdk_dir/$apk_dest_name"
     else
         echo "No se encontró el archivo $apk_path"
         exit 1
@@ -58,7 +85,14 @@ if ./gradlew assembleRelease; then
 
     # Instalar APK en el dispositivo/emulador
     echo "El applicationId detectado es: $application_id"
-    cd ~/Android/Sdk/ || { echo "No se pudo acceder a ~/Android/Sdk/"; exit 1; }
+
+    # Ensure adb is available
+    if ! command -v adb >/dev/null 2>&1; then
+        echo "adb no está disponible en el PATH. Asegúrate de que platform-tools estén instalados y adb sea accesible."
+        exit 1
+    fi
+
+    cd "$sdk_dir" || { echo "No se pudo acceder a $sdk_dir"; exit 1; }
     if adb shell pm list packages | grep -q "$application_id"; then
         echo "La app ya está instalada. Desinstalando $application_id..."
         adb uninstall "$application_id"
@@ -66,7 +100,12 @@ if ./gradlew assembleRelease; then
     echo "Instalando $apk_dest_name..."
     adb install "$apk_dest_name"
 
-    xdg-open "https://drive.google.com/drive/u/1/folders/1NLHMJdUNY28RNL4fRtyJs9KGe8iaxH6f"
+    # Open the Drive folder using the right command for the platform
+    if command -v "$open_cmd" >/dev/null 2>&1; then
+        "$open_cmd" "https://drive.google.com/drive/u/1/folders/1NLHMJdUNY28RNL4fRtyJs9KGe8iaxH6f"
+    else
+        echo "No se pudo abrir el navegador automáticamente. URL: https://drive.google.com/drive/u/1/folders/1NLHMJdUNY28RNL4fRtyJs9KGe8iaxH6f"
+    fi
 else
     echo "La compilación falló."
     exit 1
