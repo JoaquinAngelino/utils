@@ -155,7 +155,7 @@ adb install "$apk_dest_name"
 
 # Open the Drive folder using the right command for the platform
 if command -v "$open_cmd" >/dev/null 2>&1; then
-    "$open_cmd" "https://drive.google.com/drive/u/1/folders/1NLHMJdUNY28RNL4fRtyJs9KGe8iaxH6f"
+    "$open_cmd" "https://drive.google.com/drive/u/1/folders/1TB6iEXm8YtRLk0p4Sc7THt2Gjj_pRKBC"
 else
     echo "No se pudo abrir el navegador automáticamente. URL: https://drive.google.com/drive/u/1/folders/1NLHMJdUNY28RNL4fRtyJs9KGe8iaxH6f"
 fi
