@@ -72,8 +72,22 @@ echo "Parallelism: $PARALLEL"
 echo "Dry run: $DRY_RUN"
 echo "Drop collections before import: $DROP"
 
+# If the provided input directory contains .json/.json.gz files at the top level,
+# treat the directory itself as a single database directory. Otherwise expect
+# subdirectories under INDIR each representing a database.
+shopt -s nullglob
+top_files=("$INDIR"/*.json "$INDIR"/*.json.gz)
+shopt -u nullglob
+
+if [ ${#top_files[@]} -gt 0 ]; then
+  echo "Detected top-level collection files in $INDIR — treating as single DB directory"
+  dbpaths=("$INDIR")
+else
+  dbpaths=("$INDIR"/*)
+fi
+
 # Iterate databases (subdirectories)
-for dbpath in "$INDIR"/*; do
+for dbpath in "${dbpaths[@]}"; do
   [ -d "$dbpath" ] || continue
   dbname=$(basename "$dbpath")
   echo "Processing DB: $dbname"
