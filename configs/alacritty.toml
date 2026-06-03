@@ -73,7 +73,7 @@ history = 5000
 multiplier = 5
 
 [mouse]
-hide_when_typing = true
+hide_when_typing = false
 
 [keyboard]
 bindings = [
