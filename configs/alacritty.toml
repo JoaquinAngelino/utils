@@ -1,5 +1,5 @@
 [window]
-opacity = 0.94
+opacity = 0.96
 dynamic_padding = true
 decorations = "full"
 # startup_mode = "Windowed"
@@ -24,41 +24,45 @@ style = "Italic"
 family = "DejaVuSansMNerdFont"
 style = "Bold Italic"
 
+# Claude — dark theme
+# Inspired by Claude's UI palette: deep navy bg, blue-tinted fg,
+# soft purples, corals, teals, and warm accents.
+ 
 [colors.primary]
-background = "0x1e1e2e"   # base
-foreground = "0xcdd6f4"   # text
-
+background = "0x0d1117"   # deep github-dark navy (Claude's dark canvas)
+foreground = "0xe6edf3"   # near-white with a blue-grey tint
+ 
 [colors.cursor]
-text = "0x1e1e2e"         # base
-cursor = "0xf5e0dc"       # rosewater
-
+text    = "0x0d1117"      # background
+cursor  = "0xe6edf3"      # foreground (clean contrast)
+ 
 [colors.selection]
-text = "0x1e1e2e"         # base
-background = "0xf5e0dc"   # rosewater
-
+text       = "0x0d1117"   # background
+background = "0x388bfd"   # Claude accent blue
+ 
 [colors.normal]
-black   = "0x45475a"      # surface1
-red     = "0xf38ba8"      # red
-green   = "0xa6e3a1"      # green
-yellow  = "0xf9e2af"      # yellow
-blue    = "0x89b4fa"      # blue
-magenta = "0xf5c2e7"      # pink
-cyan    = "0x94e2d5"      # teal
-white   = "0xbac2de"      # subtext1
-
+black   = "0x21262d"      # dark surface
+red     = "0xff7b72"      # coral-red  (Claude warning/error tone)
+green   = "0x7ee787"      # soft green (success)
+yellow  = "0xf0883e"      # warm amber
+blue    = "0x79c0ff"      # Claude accent blue
+magenta = "0xd2a8ff"      # soft purple (Claude's lavender)
+cyan    = "0x56d364"      # bright teal-green
+white   = "0xb1bac4"      # muted text
+ 
 [colors.bright]
-black   = "0x585b70"      # surface2
-red     = "0xf38ba8"      # red
-green   = "0xa6e3a1"      # green
-yellow  = "0xf9e2af"      # yellow
-blue    = "0x89b4fa"      # blue
-magenta = "0xf5c2e7"      # pink
-cyan    = "0x94e2d5"      # teal
-white   = "0xa6adc8"      # subtext0
-
+black   = "0x30363d"      # slightly lighter surface
+red     = "0xffa198"      # lighter coral
+green   = "0xaff5b4"      # lighter green
+yellow  = "0xffb757"      # lighter amber
+blue    = "0xa5d6ff"      # lighter blue  (Claude link/string tone)
+magenta = "0xefbfff"      # lighter lavender
+cyan    = "0x7ee787"      # lighter teal
+white   = "0xe6edf3"      # full bright fg
+ 
 [cursor]
-style = { shape = "Block", blinking = "On" }
-vi_mode_style = { shape = "Beam", blinking = "Off" }
+style          = { shape = "Block", blinking = "On" }
+vi_mode_style  = { shape = "Beam",  blinking = "Off" }
 blink_interval = 500
 
 [selection]
